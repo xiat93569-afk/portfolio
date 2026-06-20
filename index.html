@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夏聪 · 作品集</title>
+<style>
+  * { margin:0; padding:0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; background: #f8f6f1; color: #2c2c2c; min-height: 100vh; }
+  .hero { background: linear-gradient(135deg, #2c2416 0%, #3d3222 50%, #4a3d28 100%); color: #e8dcc8; padding: 48px 40px 36px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border: 1px solid rgba(184,148,90,.15); border-radius: 50%; }
+  .hero-name { font-family: 'Noto Serif SC', serif; font-size: 32px; letter-spacing: 8px; color: #fff; margin-bottom: 6px; }
+  .hero-title { font-size: 13px; letter-spacing: 4px; color: #b8965a; opacity: .85; }
+  .hero-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
+  .hero-line span { width: 32px; height: 1px; background: rgba(184,148,90,.35); }
+  .hero-line b { font-size: 11px; color: #b8965a; letter-spacing: 3px; font-weight:400; opacity:.7; }
+  .nav { display: flex; justify-content: center; gap: 0; background: #fff; border-bottom: 1px solid rgba(184,148,90,.15); padding: 0 24px; position: sticky; top:0; z-index:10; }
+  .nav-btn { font-size: 12.5px; letter-spacing: 2px; color: #888; padding: 14px 22px; cursor: pointer; border-bottom: 2px solid transparent; transition: all .25s; }
+  .nav-btn:hover { color: #8A6C3C; }
+  .nav-btn.active { color: #8A6C3C; border-bottom-color: #b8965a; font-weight: 600; }
+  .container { max-width: 980px; margin: 0 auto; padding: 28px 24px 56px; }
+  .sec-title { font-family: 'Noto Serif SC', serif; font-size: 16px; letter-spacing: 4px; color: #333; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid #b8965a; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .grid-item { background: #fff; border: 1px solid rgba(184,148,90,.12); border-radius: 4px; overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer; }
+  .grid-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(140,108,60,.12); }
+  .grid-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+  .grid-item .caption { font-size: 11px; color: #999; padding: 6px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: .5px; }
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .video-card { background: #fff; border: 1px solid rgba(184,148,90,.12); border-radius: 6px; overflow: hidden; transition: transform .25s; }
+  .video-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(140,108,60,.1); }
+  .video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #2c2416, #4a3d28); display: flex; align-items: center; justify-content: center; position: relative; }
+  .play-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+  .play-icon::after { content: ''; border-style: solid; border-width: 10px 0 10px 17px; border-color: transparent transparent transparent #b8965a; margin-left: 4px; }
+  .video-info { padding: 12px 14px; }
+  .video-name { font-size: 12.5px; color: #333; margin-bottom: 4px; letter-spacing: .5px; }
+  .video-size { font-size: 10.5px; color: #bbb; }
+  .lightbox { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,.88); z-index: 999; align-items: center; justify-content: center; }
+  .lightbox.show { display: flex; }
+  .lightbox img { max-width: 92%; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: #fff; cursor: pointer; opacity: .7; }
+  .lightbox-close:hover { opacity: 1; }
+  .footer { text-align: center; padding: 24px; font-size: 10px; color: #ccc; letter-spacing: 2px; border-top: 1px solid rgba(184,148,90,.1); }
+  .no-video { text-align: center; padding: 48px 24px; color: #bbb; font-size: 13px; line-height: 2; }
+  @media(max-width:600px) { .grid { grid-template-columns: repeat(2,1fr); } .video-grid { grid-template-columns: 1fr; } .hero-name { font-size: 24px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-name">XIA CONG</div>
+  <div class="hero-title">新媒体运营 · 内容策划</div>
+  <div class="hero-line"><span></span><b>PORTFOLIO</b><span></span></div>
+</div>
+
+<div class="nav" id="nav">
+  <div class="nav-btn active" onclick="switchTab('accounts')">账号资料</div>
+  <div class="nav-btn" onclick="switchTab('videos')">视频作品</div>
+</div>
+
+<div class="container">
+  <section id="tab-accounts">
+    <div class="sec-title">账号运营成果截图</div>
+    <div class="grid" id="accountGrid"></div>
+  </section>
+  <section id="tab-videos" style="display:none;">
+    <div class="sec-title">部分视频作品</div>
+    <div class="no-video">
+      视频作品文件较大，请通过以下链接下载查看：<br><br>
+      <a href="#" style="color:#b8965a;font-size:14px;letter-spacing:1px;">点击获取视频作品网盘链接</a><br><br>
+      <span style="font-size:11px;color:#ccc;">（含：健身房宣传片 / 天合汇锦城宣传片 / 有闲生活晚会 / 降噪耳机 / 定情信物 / 专题片）</span>
+    </div>
+  </section>
+</div>
+
+<div class="footer">XIA CONG · PORTFOLIO © 2026</div>
+
+<div class="lightbox" id="lb" onclick="closeLb()">
+  <div class="lightbox-close">&times;</div>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+const accountNames = [
+  '账号截图 01','账号截图 02','账号截图 03','账号截图 04',
+  '账号截图 05','账号截图 06','账号截图 07','账号截图 08',
+  '账号截图 09','账号截图 10','账号截图 11','账号截图 12',
+  '账号截图 13','账号截图 14','账号截图 15','账号截图 16',
+  '账号截图 17','账号截图 18','账号截图 19',
+  '账号截图 20','账号截图 21','账号截图 22',
+  '账号截图 24','账号截图 25','账号截图 26',
+  '账号截图 27','账号截图 28','账号截图 29',
+  '账号截图 30','账号截图 31','账号截图 32',
+  'CRM系统 01 - 概览页',
+  'CRM系统 02 - 客户管理',
+  'CRM系统 03 - 数据面板',
+  'CRM系统 04 - 功能模块',
+  'CRM系统 05 - 界面详情'
+];
+
+// 图片转为 base64 内嵌或指向 CDN
+// 由于图片较多，这里用本地相对路径方式，部署时替换为 CDN 链接
+const imagePaths = [
+  '部分账号资料/1.jpg','部分账号资料/2.jpg','部分账号资料/3.jpg','部分账号资料/4.jpg',
+  '部分账号资料/5.jpg','部分账号资料/6.jpg','部分账号资料/7.jpg','部分账号资料/8.jpg',
+  '部分账号资料/9.jpg','部分账号资料/10.jpg','部分账号资料/11.jpg','部分账号资料/12.jpg',
+  '部分账号资料/13.jpg','部分账号资料/14.jpg','部分账号资料/15.jpg','部分账号资料/16.jpg',
+  '部分账号资料/17.jpg','部分账号资料/18.jpg','部分账号资料/19.jpg',
+  '部分账号资料/20.jpg','部分账号资料/21.jpg','部分账号资料/22.jpg',
+  '部分账号资料/24.jpg','部分账号资料/25.jpg','部分账号资料/26.jpg',
+  '部分账号资料/27.jpg','部分账号资料/28.jpg','部分账号资料/29.jpg',
+  '部分账号资料/30.png','部分账号资料/31.png','部分账号资料/32.png',
+  '部分账号资料/自己开发的新媒体客户管理系统01.png',
+  '部分账号资料/自己开发的新媒体客户管理系统02.png',
+  '部分账号资料/自己开发的新媒体客户管理系统03.png',
+  '部分账号资料/自己开发的新媒体客户管理系统04.png',
+  '部分账号资料/自己开发的新媒体客户管理系统05.png'
+];
+
+function renderAccounts() {
+  const g = document.getElementById('accountGrid');
+  accountNames.forEach((name, i) => {
+    const d = document.createElement('div');
+    d.className = 'grid-item';
+    d.innerHTML = `<img src="${imagePaths[i]}" alt="${name}" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#eee,#ddd)';this.alt='图片加载失败'"><div class="caption">${name}</div>`;
+    d.onclick = () => openLb(imagePaths[i]);
+    g.appendChild(d);
+  });
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-accounts').style.display = tab === 'accounts' ? '' : 'none';
+  document.getElementById('tab-videos').style.display = tab === 'videos' ? '' : 'none';
+}
+
+function openLb(src) {
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lb').classList.add('show');
+}
+function closeLb() { document.getElementById('lb').classList.remove('show'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+
+renderAccounts();
+</script>
+</body>
+</html>
