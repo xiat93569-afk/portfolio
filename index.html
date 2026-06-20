@@ -8,25 +8,25 @@
   * { margin:0; padding:0; box-sizing: border-box; }
   body { font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; background: #f8f6f1; color: #2c2c2c; min-height: 100vh; }
   .hero { background: linear-gradient(135deg, #2c2416 0%, #3d3222 50%, #4a3d28 100%); color: #e8dcc8; padding: 48px 40px 36px; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border: 1px solid rgba(184,148,90,.15); border-radius: 50%; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border:1px solid rgba(184,148,90,.15); border-radius: 50%; }
   .hero-name { font-family: 'Noto Serif SC', serif; font-size: 32px; letter-spacing: 8px; color: #fff; margin-bottom: 6px; }
   .hero-title { font-size: 13px; letter-spacing: 4px; color: #b8945a; opacity: .85; }
   .hero-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
-  .hero-line span { width: 32px; height: 1px; background: rgba(184,148,90,.35); }
+  .hero-line span { width: 32px; height:1px; background: rgba(184,148,90,.35); }
   .hero-line b { font-size: 11px; color: #b8945a; letter-spacing: 3px; font-weight: 400; opacity: .7; }
-  .nav { display: flex; justify-content: center; gap: 0; background: #fff; border-bottom: 1px solid rgba(184,148,90,.15); padding: 0 24px; position: sticky; top: 0; z-index: 10; }
+  .nav { display: flex; justify-content: center; gap: 0; background: #fff; border-bottom:1px solid rgba(184,148,90,.15); padding: 0 24px; position: sticky; top: 0; z-index: 10; }
   .nav-btn { font-size: 12.5px; letter-spacing: 2px; color: #888; padding: 14px 22px; cursor: pointer; border-bottom: 2px solid transparent; transition: all .25s; background: none; border-top: none; border-left: none; border-right: none; }
   .nav-btn:hover { color: #8a6c3c; }
   .nav-btn.active { color: #8a6c3c; border-bottom-color: #b8945a; font-weight: 600; }
   .container { max-width: 980px; margin: 0 auto; padding: 28px 24px 56px; }
   .sec-title { font-family: 'Noto Serif SC', serif; font-size: 16px; letter-spacing: 4px; color: #333; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid #b8945a; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-  .grid-item { background: #fff; border: 1px solid rgba(184,148,90,.12); border-radius: 4px; overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer; }
+  .grid-item { background: #fff; border:1px solid rgba(184,148,90,.12); border-radius: 4px; overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer; }
   .grid-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(140,108,60,.12); }
   .grid-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
   .grid-item .caption { font-size: 11px; color: #999; padding: 6px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: .5px; }
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .video-card { background: #fff; border: 1px solid rgba(184,148,90,.12); border-radius: 6px; overflow: hidden; transition: transform .25s; cursor: pointer; }
+  .video-card { background: #fff; border:1px solid rgba(184,148,90,.12); border-radius: 6px; overflow: hidden; transition: transform .25s; cursor: pointer; }
   .video-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(140,108,60,.1); }
   .video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #2c2416, #4a3d28); position: relative; overflow: hidden; }
   .play-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.15); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); transition: opacity .2s; }
@@ -39,9 +39,15 @@
   /* 图片 Lightbox */
   .lightbox { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.88); z-index: 999; align-items: center; justify-content: center; }
   .lightbox.show { display: flex; }
-  .lightbox img { max-width: 92%; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+  .lightbox img { max-width: 92%; max-height: 88vh; object-fit: contain; border-radius: 4px; user-select: none; }
   .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: #fff; cursor: pointer; opacity: .7; background: none; border: none; z-index: 10; }
   .lightbox-close:hover { opacity: 1; }
+  /* 左右翻页按钮 */
+  .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; z-index: 10; user-select: none; }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+  .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,.25); }
+  .lb-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.6); font-size: 12px; letter-spacing: 2px; z-index: 10; }
 
   /* 视频 Lightbox */
   .vlb { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.92); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; }
@@ -53,7 +59,7 @@
   .vlb-close:hover { background: rgba(255,255,255,.25); }
 
   .footer { text-align: center; padding: 24px; font-size: 10px; color: #ccc; letter-spacing: 2px; border-top: 1px solid rgba(184,148,90,.1); }
-  @media(max-width:600px) { .grid { grid-template-columns: repeat(2,1fr); } .video-grid { grid-template-columns: 1fr; } .hero-name { font-size: 24px; } .vlb-video-wrap { width: 96%; max-width: 100%; } }
+  @media(max-width:600px) { .grid { grid-template-columns: repeat(2,1fr); } .video-grid { grid-template-columns: 1fr; } .hero-name { font-size: 24px; } .vlb-video-wrap { width: 96%; max-width: 100%; } .lb-prev { left: 6px; width: 36px; height: 36px; font-size: 16px; } .lb-next { right: 6px; width: 36px; height: 36px; font-size: 16px; } }
 </style>
 </head>
 <body>
@@ -83,9 +89,12 @@
 <div class="footer">XIA CONG · PORTFOLIO © 2026</div>
 
 <!-- 图片 Lightbox -->
-<div class="lightbox" id="lb" onclick="closeLb()">
-  <button class="lightbox-close">&times;</button>
-  <img id="lbImg" src="" alt="">
+<div class="lightbox" id="lb">
+  <button class="lightbox-close" onclick="closeLb()">&times;</button>
+  <button class="lb-prev" onclick="prevImage()">&#10094;</button>
+  <button class="lb-next" onclick="nextImage()">&#10095;</button>
+  <img id="lbImg" src="" alt="" onclick="event.stopPropagation()">
+  <div class="lb-counter" id="lbCounter"></div>
 </div>
 
 <!-- 视频 Lightbox -->
@@ -125,13 +134,15 @@ const imagePaths = [
   '部分账号资料/自己开发的新媒体客户管理系统05.png'
 ];
 
+let currentImageIndex = -1;
+
 function renderAccounts() {
   const g = document.getElementById('accountGrid');
   accountNames.forEach((name, i) => {
     const d = document.createElement('div');
     d.className = 'grid-item';
     d.innerHTML = `<img src="${imagePaths[i]}" alt="${name}" loading="lazy"><div class="caption">${name}</div>`;
-    d.onclick = () => openLb(imagePaths[i]);
+    d.onclick = () => openLb(i);
     g.appendChild(d);
   });
 }
@@ -178,10 +189,24 @@ function switchTab(tab, btn) {
   if (tab === 'videos') renderVideos();
 }
 
-/* 图片 Lightbox */
-function openLb(src) {
-  document.getElementById('lbImg').src = src;
+/* 图片 Lightbox —— 支持翻页 */
+function openLb(index) {
+  currentImageIndex = index;
+  showImageByIndex(index);
   document.getElementById('lb').classList.add('show');
+}
+function showImageByIndex(index) {
+  const img = document.getElementById('lbImg');
+  img.src = imagePaths[index];
+  document.getElementById('lbCounter').textContent = (index + 1) + ' / ' + imagePaths.length;
+}
+function prevImage() {
+  currentImageIndex = (currentImageIndex - 1 + imagePaths.length) % imagePaths.length;
+  showImageByIndex(currentImageIndex);
+}
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+  showImageByIndex(currentImageIndex);
 }
 function closeLb() { document.getElementById('lb').classList.remove('show'); }
 
@@ -189,21 +214,18 @@ function closeLb() { document.getElementById('lb').classList.remove('show'); }
 function openVlb(name, bvid) {
   const vlb = document.getElementById('vlb');
   const wrap = document.getElementById('vlbWrap');
-  // 先清空再插入 iframe，避免重复
   wrap.innerHTML = '';
   const iframe = document.createElement('iframe');
   iframe.src = BILIBILI_EMBED + bvid + '&autoplay=1&high_quality=1';
   iframe.allowFullscreen = true;
   iframe.allow = 'autoplay; fullscreen';
   wrap.appendChild(iframe);
-
   vlb.classList.add('show');
   document.getElementById('vlbTitle').textContent = name;
 }
 function closeVlb() {
   const vlb = document.getElementById('vlb');
   vlb.classList.remove('show');
-  // 清空 iframe 停止播放
   document.getElementById('vlbWrap').innerHTML = '';
   document.getElementById('vlbTitle').textContent = '';
 }
@@ -212,6 +234,11 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeLb();
     closeVlb();
+  }
+  // 图片翻页：左右箭头
+  if (document.getElementById('lb').classList.contains('show')) {
+    if (e.key === 'ArrowLeft')  { prevImage(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { nextImage(); e.preventDefault(); }
   }
 });
 
