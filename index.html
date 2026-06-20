@@ -34,7 +34,7 @@
   .video-card:hover .play-icon { opacity: 1; }
   .video-info { padding: 12px 14px; }
   .video-name { font-size: 12.5px; color: #333; margin-bottom: 4px; letter-spacing: .5px; }
-  .video-size { font-size: 10.5px; color: #bbb; }
+  .video-source { font-size: 10px; color: #bbb; }
 
   /* 图片 Lightbox */
   .lightbox { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.88); z-index: 999; align-items: center; justify-content: center; }
@@ -46,8 +46,8 @@
   /* 视频 Lightbox */
   .vlb { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.92); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; }
   .vlb.show { display: flex; }
-  .vlb-video-wrap { width: 90%; max-width: 900px; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-  .vlb-video-wrap video { width: 100%; display: block; background: #000; outline: none; }
+  .vlb-video-wrap { width: 90%; max-width: 900px; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5); position: relative; }
+  .vlb-video-wrap iframe { width: 100%; aspect-ratio: 16/9; display: block; background: #000; border: none; }
   .vlb-title { color: #e8dcc8; font-size: 13px; letter-spacing: 2px; margin-top: 14px; opacity: .85; }
   .vlb-close { position: absolute; top: 18px; right: 22px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; z-index: 10; }
   .vlb-close:hover { background: rgba(255,255,255,.25); }
@@ -91,9 +91,7 @@
 <!-- 视频 Lightbox -->
 <div class="vlb" id="vlb" onclick="if(event.target===this)closeVlb()">
   <button class="vlb-close" onclick="closeVlb()">&times;</button>
-  <div class="vlb-video-wrap">
-    <video id="vlbVideo" controls preload="none"></video>
-  </div>
+  <div class="vlb-video-wrap" id="vlbWrap"></div>
   <div class="vlb-title" id="vlbTitle"></div>
 </div>
 
@@ -138,34 +136,35 @@ function renderAccounts() {
   });
 }
 
+/* 视频数据：B站 BV 号 + 嵌入地址 */
 const videos = [
-  { name: '五粮宣传片',   file: 'wu-liang.mp4',                  size: '48.5 MB' },
-  { name: '健身房宣传',   file: 'gym.mp4',                          size: '95.0 MB' },
-  { name: '家装宣传片',   file: 'home-decor.mp4',                   size: '96.6 MB' },
-  { name: '晚会记录',     file: 'gala-event.mp4',                   size: '85.1 MB' },
-  { name: '珠宝赛道',     file: 'jewelry.mp4',                     size: '74.0 MB' },
-  { name: '降噪耳机宣传', file: 'noise-canceling-headphones.mp4', size: '52.1 MB' },
+  { name: '五粮宣传片',   bvid: 'BV1yJjp61EFS' },
+  { name: '健身房宣传',   bvid: 'BV11jjp6mEXt' },
+  { name: '家装宣传片',   bvid: 'BV1CHjp65EEq' },
+  { name: '晚会记录',     bvid: 'BV1yJjp61Ewa' },
+  { name: '降噪耳机宣传', bvid: 'BV1CHjp65EGB' },
 ];
-const BASE = 'https://ghproxy.com/https://github.com/xiat93569-afk/portfolio/releases/download/videos/';
+const BILIBILI_EMBED = 'https://player.bilibili.com/player.html?bvid=';
 let videosRendered = false;
 
 function renderVideos() {
   if (videosRendered) return;
   const g = document.getElementById('videoGrid');
   videos.forEach(v => {
-    const url = BASE + v.file;
     const d = document.createElement('div');
     d.className = 'video-card';
     d.innerHTML = `
       <div class="video-thumb">
-        <video src="${url}" preload="metadata" muted style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:4px 4px 0 0;"></video>
+        <img src="https://raw.githubusercontent.com/xiat93569-afk/portfolio/main/部分账号资料/视频封面占位.png"
+             style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:4px 4px 0 0;"
+             onerror="this.style.display='none'" alt="${v.name}" />
         <div class="play-icon"></div>
       </div>
       <div class="video-info">
         <div class="video-name">${v.name}</div>
-        <div class="video-size">${v.size}</div>
+        <div class="video-source">B站视频</div>
       </div>`;
-    d.onclick = () => openVlb(v.name, url);
+    d.onclick = () => openVlb(v.name, v.bvid);
     g.appendChild(d);
   });
   videosRendered = true;
@@ -186,26 +185,27 @@ function openLb(src) {
 }
 function closeLb() { document.getElementById('lb').classList.remove('show'); }
 
-/* 视频 Lightbox */
-let currentVlbVideo = null;
-function openVlb(name, url) {
+/* 视频 Lightbox —— B站 iframe 嵌入 */
+function openVlb(name, bvid) {
   const vlb = document.getElementById('vlb');
-  const v = document.getElementById('vlbVideo');
-  // 停止之前的视频
-  if (currentVlbVideo && currentVlbVideo !== v) { currentVlbVideo.pause(); }
-  v.src = url;
+  const wrap = document.getElementById('vlbWrap');
+  // 先清空再插入 iframe，避免重复
+  wrap.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.src = BILIBILI_EMBED + bvid + '&autoplay=1&high_quality=1';
+  iframe.allowFullscreen = true;
+  iframe.allow = 'autoplay; fullscreen';
+  wrap.appendChild(iframe);
+
   vlb.classList.add('show');
   document.getElementById('vlbTitle').textContent = name;
-  currentVlbVideo = v;
-  v.play().catch(() => {});
 }
 function closeVlb() {
   const vlb = document.getElementById('vlb');
   vlb.classList.remove('show');
-  const v = document.getElementById('vlbVideo');
-  v.pause();
-  v.src = '';
-  currentVlbVideo = null;
+  // 清空 iframe 停止播放
+  document.getElementById('vlbWrap').innerHTML = '';
+  document.getElementById('vlbTitle').textContent = '';
 }
 
 document.addEventListener('keydown', e => {
