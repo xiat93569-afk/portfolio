@@ -10,16 +10,16 @@
   .hero { background: linear-gradient(135deg, #2c2416 0%, #3d3222 50%, #4a3d28 100%); color: #e8dcc8; padding: 48px 40px 36px; text-align: center; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border: 1px solid rgba(184,148,90,.15); border-radius: 50%; }
   .hero-name { font-family: 'Noto Serif SC', serif; font-size: 32px; letter-spacing: 8px; color: #fff; margin-bottom: 6px; }
-  .hero-title { font-size: 13px; letter-spacing: 4px; color: #b8965a; opacity: .85; }
+  .hero-title { font-size: 13px; letter-spacing: 4px; color: #b8945a; opacity: .85; }
   .hero-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
   .hero-line span { width: 32px; height: 1px; background: rgba(184,148,90,.35); }
-  .hero-line b { font-size: 11px; color: #b8965a; letter-spacing: 3px; font-weight:400; opacity:.7; }
-  .nav { display: flex; justify-content: center; gap: 0; background: #fff; border-bottom: 1px solid rgba(184,148,90,.15); padding: 0 24px; position: sticky; top:0; z-index:10; }
-  .nav-btn { font-size: 12.5px; letter-spacing: 2px; color: #888; padding: 14px 22px; cursor: pointer; border-bottom: 2px solid transparent; transition: all .25s; }
-  .nav-btn:hover { color: #8A6C3C; }
-  .nav-btn.active { color: #8A6C3C; border-bottom-color: #b8965a; font-weight: 600; }
+  .hero-line b { font-size: 11px; color: #b8945a; letter-spacing: 3px; font-weight: 400; opacity: .7; }
+  .nav { display: flex; justify-content: center; gap: 0; background: #fff; border-bottom: 1px solid rgba(184,148,90,.15); padding: 0 24px; position: sticky; top: 0; z-index: 10; }
+  .nav-btn { font-size: 12.5px; letter-spacing: 2px; color: #888; padding: 14px 22px; cursor: pointer; border-bottom: 2px solid transparent; transition: all .25s; background: none; border-top: none; border-left: none; border-right: none; }
+  .nav-btn:hover { color: #8a6c3c; }
+  .nav-btn.active { color: #8a6c3c; border-bottom-color: #b8945a; font-weight: 600; }
   .container { max-width: 980px; margin: 0 auto; padding: 28px 24px 56px; }
-  .sec-title { font-family: 'Noto Serif SC', serif; font-size: 16px; letter-spacing: 4px; color: #333; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid #b8965a; }
+  .sec-title { font-family: 'Noto Serif SC', serif; font-size: 16px; letter-spacing: 4px; color: #333; margin-bottom: 18px; padding-left: 14px; border-left: 3px solid #b8945a; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
   .grid-item { background: #fff; border: 1px solid rgba(184,148,90,.12); border-radius: 4px; overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer; }
   .grid-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(140,108,60,.12); }
@@ -28,19 +28,18 @@
   .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
   .video-card { background: #fff; border: 1px solid rgba(184,148,90,.12); border-radius: 6px; overflow: hidden; transition: transform .25s; }
   .video-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(140,108,60,.1); }
-  .video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #2c2416, #4a3d28); display: flex; align-items: center; justify-content: center; position: relative; }
-  .play-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
-  .play-icon::after { content: ''; border-style: solid; border-width: 10px 0 10px 17px; border-color: transparent transparent transparent #b8965a; margin-left: 4px; }
+  .video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #2c2416, #4a3d28); position: relative; overflow: hidden; }
+  .play-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.15); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); cursor: pointer; transition: opacity .2s; }
+  .play-icon::after { content: ''; border-style: solid; border-width: 10px 0 10px 17px; border-color: transparent transparent transparent #b8945a; margin-left: 4px; }
   .video-info { padding: 12px 14px; }
   .video-name { font-size: 12.5px; color: #333; margin-bottom: 4px; letter-spacing: .5px; }
   .video-size { font-size: 10.5px; color: #bbb; }
-  .lightbox { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,.88); z-index: 999; align-items: center; justify-content: center; }
+  .lightbox { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.88); z-index: 999; align-items: center; justify-content: center; }
   .lightbox.show { display: flex; }
   .lightbox img { max-width: 92%; max-height: 88vh; object-fit: contain; border-radius: 4px; }
-  .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: #fff; cursor: pointer; opacity: .7; }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: #fff; cursor: pointer; opacity: .7; background: none; border: none; }
   .lightbox-close:hover { opacity: 1; }
   .footer { text-align: center; padding: 24px; font-size: 10px; color: #ccc; letter-spacing: 2px; border-top: 1px solid rgba(184,148,90,.1); }
-  .no-video { text-align: center; padding: 48px 24px; color: #bbb; font-size: 13px; line-height: 2; }
   @media(max-width:600px) { .grid { grid-template-columns: repeat(2,1fr); } .video-grid { grid-template-columns: 1fr; } .hero-name { font-size: 24px; } }
 </style>
 </head>
@@ -53,8 +52,8 @@
 </div>
 
 <div class="nav" id="nav">
-  <div class="nav-btn active" onclick="switchTab('accounts')">账号资料</div>
-  <div class="nav-btn" onclick="switchTab('videos')">视频作品</div>
+  <button class="nav-btn active" onclick="switchTab('accounts', this)">账号资料</button>
+  <button class="nav-btn" onclick="switchTab('videos', this)">视频作品</button>
 </div>
 
 <div class="container">
@@ -64,18 +63,14 @@
   </section>
   <section id="tab-videos" style="display:none;">
     <div class="sec-title">部分视频作品</div>
-    <div class="no-video">
-      视频作品文件较大，请通过以下链接下载查看：<br><br>
-      <a href="#" style="color:#b8965a;font-size:14px;letter-spacing:1px;">点击获取视频作品网盘链接</a><br><br>
-      <span style="font-size:11px;color:#ccc;">（含：健身房宣传片 / 天合汇锦城宣传片 / 有闲生活晚会 / 降噪耳机 / 定情信物 / 专题片）</span>
-    </div>
+    <div class="video-grid" id="videoGrid"></div>
   </section>
 </div>
 
 <div class="footer">XIA CONG · PORTFOLIO © 2026</div>
 
 <div class="lightbox" id="lb" onclick="closeLb()">
-  <div class="lightbox-close">&times;</div>
+  <button class="lightbox-close">&times;</button>
   <img id="lbImg" src="" alt="">
 </div>
 
@@ -90,15 +85,8 @@ const accountNames = [
   '账号截图 24','账号截图 25','账号截图 26',
   '账号截图 27','账号截图 28','账号截图 29',
   '账号截图 30','账号截图 31','账号截图 32',
-  'CRM系统 01 - 概览页',
-  'CRM系统 02 - 客户管理',
-  'CRM系统 03 - 数据面板',
-  'CRM系统 04 - 功能模块',
-  'CRM系统 05 - 界面详情'
+  'CRM系统 01','CRM系统 02','CRM系统 03','CRM系统 04','CRM系统 05'
 ];
-
-// 图片转为 base64 内嵌或指向 CDN
-// 由于图片较多，这里用本地相对路径方式，部署时替换为 CDN 链接
 const imagePaths = [
   '部分账号资料/1.jpg','部分账号资料/2.jpg','部分账号资料/3.jpg','部分账号资料/4.jpg',
   '部分账号资料/5.jpg','部分账号资料/6.jpg','部分账号资料/7.jpg','部分账号资料/8.jpg',
@@ -121,17 +109,50 @@ function renderAccounts() {
   accountNames.forEach((name, i) => {
     const d = document.createElement('div');
     d.className = 'grid-item';
-    d.innerHTML = `<img src="${imagePaths[i]}" alt="${name}" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#eee,#ddd)';this.alt='图片加载失败'"><div class="caption">${name}</div>`;
+    d.innerHTML = `<img src="${imagePaths[i]}" alt="${name}" loading="lazy"><div class="caption">${name}</div>`;
     d.onclick = () => openLb(imagePaths[i]);
     g.appendChild(d);
   });
 }
 
-function switchTab(tab) {
+const videos = [
+  { name: '五粮宣传片',   file: 'wu-liang.mp4',                  size: '48.5 MB' },
+  { name: '健身房宣传',   file: 'gym.mp4',                          size: '95.0 MB' },
+  { name: '家装宣传片',   file: 'home-decor.mp4',                   size: '96.6 MB' },
+  { name: '晚会记录',     file: 'gala-event.mp4',                   size: '85.1 MB' },
+  { name: '珠宝赛道',     file: 'jewelry.mp4',                     size: '74.0 MB' },
+  { name: '降噪耳机宣传', file: 'noise-canceling-headphones.mp4', size: '52.1 MB' },
+];
+const BASE = 'https://github.com/xiat93569-afk/portfolio/releases/download/videos/';
+let videosRendered = false;
+
+function renderVideos() {
+  if (videosRendered) return;
+  const g = document.getElementById('videoGrid');
+  videos.forEach(v => {
+    const url = BASE + v.file;
+    const d = document.createElement('div');
+    d.className = 'video-card';
+    d.innerHTML = `
+      <div class="video-thumb">
+        <video src="${url}" preload="metadata" muted style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:4px 4px 0 0;"></video>
+        <div class="play-icon" onclick="event.stopPropagation();const v=this.previousElementSibling;v.play();this.style.display='none';"></div>
+      </div>
+      <div class="video-info">
+        <div class="video-name">${v.name}</div>
+        <div class="video-size">${v.size}</div>
+      </div>`;
+    g.appendChild(d);
+  });
+  videosRendered = true;
+}
+
+function switchTab(tab, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  btn.classList.add('active');
   document.getElementById('tab-accounts').style.display = tab === 'accounts' ? '' : 'none';
   document.getElementById('tab-videos').style.display = tab === 'videos' ? '' : 'none';
+  if (tab === 'videos') renderVideos();
 }
 
 function openLb(src) {
